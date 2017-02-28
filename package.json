@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/wearereasonablepeople/ng-component-routing/issues"
   },
-  "homepage": "https://github.com/wearereasonablepeople/ng-component-routing"
+  "homepage": "https://github.com/wearereasonablepeople/ng-component-routing",
+  "dependencies": {
+    "angular": "^1.6.2",
+    "angular-ui-router": "^0.4.2",
+    "lodash": "^4.17.4"
+  }
 }
