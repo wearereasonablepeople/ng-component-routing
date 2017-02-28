@@ -1,6 +1,6 @@
-import {extend, each, isString, isArray, isObject, isFunction, kebabCase} from 'lodash';
-import angular from 'angular';
-import uiRouter from 'angular-ui-router';
+const {extend, each, isString, isArray, isObject, isFunction, kebabCase} = require('lodash');
+const angular = require('angular');
+const uiRouter = require('angular-ui-router');
 
 angular.module('warp.componentRouting', [uiRouter]).config(($stateProvider, $provide) => {
   'ngInject';
@@ -133,4 +133,4 @@ const routeWrap = ng => {
 	return ng;
 };
 
-export default routeWrap;
+module.exports = routeWrap;
