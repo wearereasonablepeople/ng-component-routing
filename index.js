@@ -2,7 +2,7 @@ const {extend, each, isString, isArray, isObject, isFunction, kebabCase} = requi
 const angular = require('angular');
 const uiRouter = require('angular-ui-router');
 
-angular.module('warp.componentRouting', [uiRouter]).config(($stateProvider, $provide) => {
+angular.module('warp.componentRouting', [uiRouter]).config(['$stateProvider', '$provide', ($stateProvider, $provide) => {
   'ngInject';
 
   const state = $stateProvider.state;
@@ -23,7 +23,7 @@ angular.module('warp.componentRouting', [uiRouter]).config(($stateProvider, $pro
       opts.template = template.join('></');
 
       // Controller to bind resolves to component
-      const controller =  function(...args) {
+      const controller = function(...args) {
         each(opts.componentBindings, (b, i) => this[b] = args[i]);
       };
       opts.controller = opts.componentBindings.concat([controller]);
@@ -52,7 +52,7 @@ angular.module('warp.componentRouting', [uiRouter]).config(($stateProvider, $pro
     state(name, opts);
     return $stateProvider;
   };
-}).service('Resolver', function($q, $resolve, $injector, $rootScope) {
+}]).service('Resolver', ['$q', '$resolve', '$injector', '$rootScope', function($q, $resolve, $injector, $rootScope) {
   'ngInject';
   this.items = {};
 
@@ -111,17 +111,17 @@ angular.module('warp.componentRouting', [uiRouter]).config(($stateProvider, $pro
     if(isString(nameOrItems)) addItem(fn, nameOrItems);
     return this;
   };
-});
+}]);
 
 const addRoute = (name, component, moduleName) => {
 	const module = angular.module(moduleName);
 	module.requires.push('warp.componentRouting');
 	module.component(name, component);
-	module.config($stateProvider => {
+	module.config(['$stateProvider', $stateProvider => {
     'ngInject';
 		component.routeOpts.component = component.routeOpts.component || name;
 		$stateProvider.state(component.routeOpts.name, component.routeOpts);
-	});
+	}]);
 };
 
 const routeWrap = ng => {
