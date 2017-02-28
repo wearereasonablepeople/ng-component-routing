@@ -22,8 +22,14 @@ const ngComponentRouting = function(angular) {
 
   // Enhance angular.module() with route method
   const orig = angular.module;
-  angular.module = (...args) => {
-    const module = orig.apply(null, args);
+  const alreadyRegistered = {};
+  angular.module = (name, reqs, configFn) => {
+    const module = alreadyRegistered[name] ? orig(name) : orig(name, reqs, configFn);
+    if(alreadyRegistered[name]) {
+      module.requires.push.apply(module.requires, reqs);
+    } else {
+      alreadyRegistered[name] = module;
+    }
     module.route = (n, c) => addRoute(n, c, module.name);
     return module;
   };
