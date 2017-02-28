@@ -4,10 +4,7 @@ const Resolver = require('./src/Resolver.js');
 const thisModuleName = 'warp.componentRouting';
 
 const ngComponentRouting = function(angular) {
-  // Create module
-  angular.module(thisModuleName, [uiRouter])
-    .config(config)
-    .service('Resolver', Resolver);
+
 
   // Route method on angular.module()
   const addRoute = (name, component, moduleName) => {
@@ -33,6 +30,11 @@ const ngComponentRouting = function(angular) {
     module.route = (n, c) => addRoute(n, c, module.name);
     return module;
   };
+
+  // Create module
+  angular.module(thisModuleName, [uiRouter])
+    .config(config)
+    .service('Resolver', Resolver);
 
   return angular;
 };
