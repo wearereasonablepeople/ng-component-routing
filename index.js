@@ -32,6 +32,7 @@ angular.module('warp.componentRouting', [uiRouter]).config(['$stateProvider', '$
       // Extend route component with resolves
       if (opts.component && isString(opts.component)) {
         $provide.decorator(`${opts.component}Directive`, $delegate => {
+          'ngInject';
           each(opts.componentBindings, b => $delegate[0].bindToController[b] = '<');
           // opts.resolve = extend(opts.resolve, $delegate[0].resolve);
           return $delegate;
