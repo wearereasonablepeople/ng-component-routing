@@ -1,6 +1,6 @@
 {
   "name": "ng-component-routing",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Angular component routing",
   "main": "index.js",
   "scripts": {
