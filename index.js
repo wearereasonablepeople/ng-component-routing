@@ -3,8 +3,6 @@ const angular = require('angular');
 const uiRouter = require('angular-ui-router');
 
 angular.module('warp.componentRouting', [uiRouter]).config(['$stateProvider', '$provide', ($stateProvider, $provide) => {
-  'ngInject';
-
   const state = $stateProvider.state;
   $stateProvider.state = (name, opts) => {
     // Allows for easier definition in state method
@@ -31,12 +29,11 @@ angular.module('warp.componentRouting', [uiRouter]).config(['$stateProvider', '$
 
       // Extend route component with resolves
       if (opts.component && isString(opts.component)) {
-        $provide.decorator(`${opts.component}Directive`, $delegate => {
-          'ngInject';
+        $provide.decorator(`${opts.component}Directive`, ['$delegate', $delegate => {
           each(opts.componentBindings, b => $delegate[0].bindToController[b] = '<');
           // opts.resolve = extend(opts.resolve, $delegate[0].resolve);
           return $delegate;
-        });
+        }]);
       }
     }
 
@@ -54,7 +51,6 @@ angular.module('warp.componentRouting', [uiRouter]).config(['$stateProvider', '$
     return $stateProvider;
   };
 }]).service('Resolver', ['$q', '$resolve', '$injector', '$rootScope', function($q, $resolve, $injector, $rootScope) {
-  'ngInject';
   this.items = {};
 
   // Returns the item that needs to be resolved
@@ -119,7 +115,6 @@ const addRoute = (name, component, moduleName) => {
 	module.requires.push('warp.componentRouting');
 	module.component(name, component);
 	module.config(['$stateProvider', $stateProvider => {
-    'ngInject';
 		component.routeOpts.component = component.routeOpts.component || name;
 		$stateProvider.state(component.routeOpts.name, component.routeOpts);
 	}]);
