@@ -118,6 +118,7 @@ const addRoute = (name, component, moduleName) => {
 	module.requires.push('warp.componentRouting');
 	module.component(name, component);
 	module.config($stateProvider => {
+    'ngInject';
 		component.routeOpts.component = component.routeOpts.component || name;
 		$stateProvider.state(component.routeOpts.name, component.routeOpts);
 	});
