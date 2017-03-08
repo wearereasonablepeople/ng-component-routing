@@ -4,8 +4,6 @@ const Resolver = require('./src/Resolver.js');
 const thisModuleName = 'warp.componentRouting';
 
 const ngComponentRouting = function(angular) {
-
-
   // Route method on angular.module()
   const addRoute = (name, component, moduleName) => {
     const module = angular.module(moduleName);
