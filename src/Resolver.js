@@ -1,6 +1,6 @@
 const {extend, each, isString, isArray, isObject, isFunction, kebabCase} = require('lodash');
 
-const Resolver = ['$q', '$resolve', '$injector', '$rootScope', function($q, $resolve, $injector, $rootScope) {
+const Resolver = ['$q', '$resolve', '$injector', '$rootScope', '$state', function($q, $resolve, $injector, $rootScope, $state) {
   this.items = {};
 
   // Returns the item that needs to be resolved
