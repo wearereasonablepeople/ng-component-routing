@@ -6,11 +6,18 @@ const Resolver = ['$q', '$resolve', '$injector', '$rootScope', function($q, $res
   // Returns the item that needs to be resolved
   this.resolve = name => this.items[name];
 
-  $rootScope.$on('$stateChangeStart', (e, toState) => {
-    each(toState.resolve, (r, key) => {
-      toState.resolve[key] = this.resolve(key) || r;
+  const applyResolves = state => {
+    each(state.resolve, (r, key) => {
+      state.resolve[key] = this.resolve(key) || r;
     });
-  });
+
+    const parent = $state.get(state.parent);
+    if(parent) {
+      applyResolves(parent);
+    }
+  };
+
+  $rootScope.$on('$stateChangeStart', (e, toState) => applyResolves(toState));
 
   // See this.add
   const addItem = (item, itemName) => {
