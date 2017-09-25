@@ -4,7 +4,6 @@
   "description": "Angular component routing",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib",
     "release": "xyz --repo git@github.com:wearereasonablepeople/ng-component-routing.git --increment"
   },
