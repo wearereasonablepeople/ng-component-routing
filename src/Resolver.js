@@ -1,4 +1,4 @@
-const {extend, each, isString, isArray, isObject, isFunction, kebabCase} = require('lodash');
+import {extend, each, isString, isArray, isObject, isFunction, kebabCase} from 'lodash-es';
 
 const Resolver = ['$q', '$resolve', '$injector', '$rootScope', '$state', function($q, $resolve, $injector, $rootScope, $state) {
   this.items = {};
@@ -27,39 +27,6 @@ const Resolver = ['$q', '$resolve', '$injector', '$rootScope', '$state', functio
 
   // Add a reusable resolve function. This function can be used by name in the state definition.
   // Accepts params as (name, fn) and ({name: fn, name2: fn2})
-
-  //   In run block:
-  //   Resolver.add('myFn', ['MyService', MyService => MyService.myMethod()]);
-  //
-  //   In config block:
-  //   .state('myState', {
-  //     component: 'myComponent',
-  //     resolve: {
-  //       example: 'myFn'
-  //     } 
-  //   })
-  //   .state('myState2', {
-  //     component: 'myComponent2',
-  //     resolve: {
-  //       example: 'myFn'
-  //     } 
-  //   })
-
-  // instead of
-
-  //   .state('myState', {
-  //     component: 'myComponent',
-  //     resolve: {
-  //       example: ['MyService', MyService => MyService.myMethod()]
-  //     } 
-  //   })
-  //   .state('myState2', {
-  //     component: 'myComponent2',
-  //     resolve: {
-  //       example: ['MyService', MyService => MyService.myMethod()]
-  //     } 
-  //   })
-
   this.add = (nameOrItems, fn) => {
     if(isObject(nameOrItems)) each(nameOrItems, addItem);
     if(isString(nameOrItems)) addItem(fn, nameOrItems);
@@ -67,4 +34,4 @@ const Resolver = ['$q', '$resolve', '$injector', '$rootScope', '$state', functio
   };
 }];
 
-module.exports = Resolver;
+export default Resolver;

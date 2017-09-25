@@ -1,4 +1,4 @@
-const {extend, each, isString, isArray, isObject, isFunction, kebabCase} = require('lodash');
+import {extend, each, isString, isArray, isObject, isFunction, kebabCase} from 'lodash-es';
 
 // Allows for easier definition in state method
 //    component: 'routeName'
@@ -65,4 +65,4 @@ const config = ['$stateProvider', '$provide', ($stateProvider, $provide) => {
   };
 }];
 
-module.exports = config;
+export default config;

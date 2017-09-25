@@ -1,11 +1,9 @@
-const uiRouter = require('angular-ui-router');
-const config = require('./config.js');
-const Resolver = require('./Resolver.js');
+import uiRouter from 'angular-ui-router';
+import config from './config.js';
+import Resolver from './Resolver.js';
 const thisModuleName = 'warp.componentRouting';
 
 const ngComponentRouting = function(angular) {
-
-
   // Route method on angular.module()
   const addRoute = (name, component, moduleName) => {
     const module = angular.module(moduleName);
@@ -38,4 +36,5 @@ const ngComponentRouting = function(angular) {
 
   return angular;
 };
-module.exports = ngComponentRouting;
+
+export default ngComponentRouting;
