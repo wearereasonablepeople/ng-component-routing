@@ -1,4 +1,5 @@
-import {extend, each, isString, isArray, isObject, isFunction, kebabCase} from 'lodash-es';
+import kebabCase from 'lodash.kebabcase';
+import each from 'lodash.foreach';
 
 const Resolver = ['$q', '$resolve', '$injector', '$rootScope', '$state', function($q, $resolve, $injector, $rootScope, $state) {
   this.items = {};
@@ -28,8 +29,8 @@ const Resolver = ['$q', '$resolve', '$injector', '$rootScope', '$state', functio
   // Add a reusable resolve function. This function can be used by name in the state definition.
   // Accepts params as (name, fn) and ({name: fn, name2: fn2})
   this.add = (nameOrItems, fn) => {
-    if(isObject(nameOrItems)) each(nameOrItems, addItem);
-    if(isString(nameOrItems)) addItem(fn, nameOrItems);
+    if(nameOrItems instanceof Object) each(nameOrItems, addItem);
+    if(typeof nameOrItems === 'string') addItem(fn, nameOrItems);
     return this;
   };
 }];

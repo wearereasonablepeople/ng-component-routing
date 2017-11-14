@@ -20,7 +20,8 @@
   "dependencies": {
     "angular": "^1.6.2",
     "angular-ui-router": "^0.4.2",
-    "lodash-es": "^4.17.4"
+    "lodash.foreach": "^4.5.0",
+    "lodash.kebabcase": "^4.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",

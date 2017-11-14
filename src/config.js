@@ -1,11 +1,12 @@
-import {extend, each, isString, isArray, isObject, isFunction, kebabCase} from 'lodash-es';
+import kebabCase from 'lodash.kebabcase';
+import each from 'lodash.foreach';
 
 // Allows for easier definition in state method
 //    component: 'routeName'
 // instead of
 //    template: '<route-name></route-name>'
 const extendWithTemplate = opts => {
-  if(opts.component && isString(opts.component)) {
+  if(opts.component && typeof opts.component === 'string') {
     const kebab = kebabCase(opts.component);
     opts.template = `<${kebab}></${kebab}>`;
   }
@@ -13,7 +14,7 @@ const extendWithTemplate = opts => {
 };
 
 const extendTemplateWithResolves = opts => {
-  if(opts.componentBindings && isArray(opts.componentBindings)) {
+  if(opts.componentBindings && Array.isArray(opts.componentBindings)) {
     // Extend template with resolves
     const template = opts.template.split('></');
     template[0] += opts.componentBindings.map(b => ` ${kebabCase(b)}="stateCtrl.${b}"`).join('');
@@ -30,7 +31,7 @@ const extendTemplateWithResolves = opts => {
 };
 
 const extendRoutewithResolves = (opts, $provide) => {
-  if (opts.component && isString(opts.component)) {
+  if (opts.component && typeof opts.component === 'string') {
     $provide.decorator(`${opts.component}Directive`, ['$delegate', $delegate => {
       each(opts.componentBindings, b => $delegate[0].bindToController[b] = '<');
       // opts.resolve = extend(opts.resolve, $delegate[0].resolve);
@@ -42,11 +43,11 @@ const extendRoutewithResolves = (opts, $provide) => {
 
 // Any resolves defined as string are converted to Resolver items
 const addResolves = opts => {
-  if(opts.resolve && (isObject(opts.resolve) || isArray(opts.resolve))) {
+  if(opts.resolve && (opts.resolve instanceof Object || Array.isArray(opts.resolve))) {
     const resolve = opts.resolve;
-    if(isArray(opts.resolve)) opts.resolve = {};
+    if(Array.isArray(opts.resolve)) opts.resolve = {};
     each(resolve, (r, name) => {
-      if(isString(r)) opts.resolve[isString(name) ? name : r] = ['Resolver', Resolver => Resolver.resolve(r)];
+      if(typeof r === 'string') opts.resolve[typeof name === 'string' ? name : r] = ['Resolver', Resolver => Resolver.resolve(r)];
     });
   }
   return opts;
