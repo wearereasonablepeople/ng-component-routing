@@ -1,5 +1,5 @@
 import kebabCase from 'lodash.kebabcase';
-import {forEach as each} from 'lodash.foreach';
+import each from 'lodash.foreach';
 
 const Resolver = ['$q', '$resolve', '$injector', '$rootScope', '$state', function($q, $resolve, $injector, $rootScope, $state) {
   this.items = {};

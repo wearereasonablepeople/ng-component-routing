@@ -1,5 +1,5 @@
 import kebabCase from 'lodash.kebabcase';
-import {forEach as each} from 'lodash.foreach';
+import each from 'lodash.foreach';
 
 // Allows for easier definition in state method
 //    component: 'routeName'
